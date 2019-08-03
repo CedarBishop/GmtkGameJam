@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Title.unity
     guid: 5dbeb2a4f9ee717418bee84dc9451c33
   - enabled: 1
-    path: Assets/Scenes/TestGameScene.unity
+    path: Assets/TestScenes/TestPause.unity
     guid: 3fbc28ec3e07d7e4bba8ae0fc0cca135
   - enabled: 1
     path: Assets/Scenes/Rules.unity
@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Credits.unity
     guid: 08e3e3008d08fe7419d2b83b402ede6c
+  - enabled: 1
+    path: Assets/Scenes/levelLayout.unity
+    guid: a37c45be746f4e94faf3837340182c46
   m_configObjects: {}
