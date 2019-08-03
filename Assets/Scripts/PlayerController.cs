@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 direction;
     private Rigidbody2D playerRigidbody;  
 
+    enum CurrentDirection {Left,Up,Right,Down}
+
     void Start()
     {
         playerRigidbody = GetComponent<Rigidbody2D>();

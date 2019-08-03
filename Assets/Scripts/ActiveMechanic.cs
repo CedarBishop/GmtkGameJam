@@ -7,7 +7,34 @@ public enum CurrentMechanic {None, Gate, Teleporter, Blocks }
 public class ActiveMechanic : MonoBehaviour
 {
     public static ActiveMechanic instance = null;
-    public CurrentMechanic currentMechanic;
+    private CurrentMechanic currentMechanic;
+    public CurrentMechanic _CurrentMechanic
+    {
+        get { return currentMechanic; }
+        set
+        {
+            currentMechanic = value;
+            switch (currentMechanic)
+            {
+                case CurrentMechanic.None:
+                    break;
+                case CurrentMechanic.Gate:
+                    break;
+                case CurrentMechanic.Teleporter:
+                    break;
+                case CurrentMechanic.Blocks:
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    //These classes dont exist yet but when they do I will uncomment it out
+
+    //private Gate[] gates;
+    //private Teleporter[] teleporters;
+    //private Block[] blocks;
 
 
     void Awake()
@@ -23,9 +50,13 @@ public class ActiveMechanic : MonoBehaviour
     }
 
 
-    void Start ()
+    void OnValidate ()
     {
+        //These classes dont exist yet but when they do I will uncomment it out
 
+        //gates = FindObjectsOfType<Gate>();
+        //teleporters = FindObjectsOfType<Teleporter>();
+        //blocks = FindObjectsOfType<Block>();
     }
 
     // Update is called once per frame
