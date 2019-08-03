@@ -19,6 +19,6 @@ public class ButtonScript : MonoBehaviour
     public void callgate()
     {
         
-         GameObject.Find("Gate").GetComponentInChildren<GateControl>().flip();
+         GameObject.Find("Gate").GetComponentInChildren<Gate>().flip();
     }
 }

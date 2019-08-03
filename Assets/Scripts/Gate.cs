@@ -2,10 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GateControl : MonoBehaviour
+public class Gate : MonoBehaviour
 { 
     private BoxCollider2D collider;
     private SpriteRenderer sprite;
+    private bool isOpen;
+    public bool _IsOpen
+    {
+        get { return isOpen; }
+        set
+        {
+            isOpen = value;
+            if (isOpen == true)
+            {
+                open();
+            }
+            else
+            {
+                close();
+            }
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -14,7 +31,6 @@ public class GateControl : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         collider.enabled = true;
         sprite.enabled = true;
-        //close();
     }
 
     // Update is called once per frame
