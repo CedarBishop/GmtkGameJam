@@ -7,7 +7,7 @@ public enum CurrentMechanic {None, Gate, Teleporter, Blocks }
 public class ActiveMechanic : MonoBehaviour
 {
     public static ActiveMechanic instance = null;
-   [SerializeField] private CurrentMechanic currentMechanic;
+    [SerializeField] private CurrentMechanic currentMechanic;
     public CurrentMechanic _CurrentMechanic
     {
         get { return currentMechanic; }
@@ -18,18 +18,22 @@ public class ActiveMechanic : MonoBehaviour
             switch (currentMechanic)
             {
                 case CurrentMechanic.None:
+                    ActivateGates(false);
                     ActivateTeleporters(false);
                     ActivateBlocks(false);
                     break;
                 case CurrentMechanic.Gate:
+                    ActivateGates(true);
                     ActivateTeleporters(false);
                     ActivateBlocks(false);
                     break;
                 case CurrentMechanic.Teleporter:
+                    ActivateGates(false);
                     ActivateTeleporters(true);
                     ActivateBlocks(false);
                     break;
                 case CurrentMechanic.Blocks:
+                    ActivateGates(false);
                     ActivateTeleporters(false);
                     ActivateBlocks(true);
                     break;
@@ -38,8 +42,6 @@ public class ActiveMechanic : MonoBehaviour
             }
         }
     }
-
-    //Gate class hasnt been pushed yet so does not exist in this context
 
     //private Gate[] gates;
     private Teleporter[] teleporters;
@@ -79,5 +81,13 @@ public class ActiveMechanic : MonoBehaviour
         {
             block.IsMovable = answer;
         }
+    }
+
+    void ActivateGates(bool answer)
+    {
+    //    foreach (Gate gate in gates)
+    //    {
+    //        gate.IsOpen = answer;
+    //    }
     }
 }
