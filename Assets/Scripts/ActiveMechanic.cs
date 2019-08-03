@@ -43,7 +43,7 @@ public class ActiveMechanic : MonoBehaviour
         }
     }
 
-    //private Gate[] gates;
+    private Gate[] gates;
     private Teleporter[] teleporters;
     private SlidingBlock[] blocks;
 
@@ -62,7 +62,7 @@ public class ActiveMechanic : MonoBehaviour
 
     void OnValidate ()
     {
-        //gates = FindObjectsOfType<Gate>();
+        gates = FindObjectsOfType<Gate>();
         teleporters = FindObjectsOfType<Teleporter>();
         blocks = FindObjectsOfType<SlidingBlock>();
     }
@@ -85,9 +85,9 @@ public class ActiveMechanic : MonoBehaviour
 
     void ActivateGates(bool answer)
     {
-    //    foreach (Gate gate in gates)
-    //    {
-    //        gate.IsOpen = answer;
-    //    }
+        foreach (Gate gate in gates)
+        {
+            gate._IsOpen = answer;
+        }
     }
 }

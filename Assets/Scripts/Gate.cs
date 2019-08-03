@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Gate : MonoBehaviour
-{ 
+{
+    public float openAngle;
+
     private BoxCollider2D collider;
     private SpriteRenderer sprite;
     private bool isOpen;
@@ -44,7 +46,7 @@ public class Gate : MonoBehaviour
         transform.parent.eulerAngles = new Vector3(
             transform.parent.eulerAngles.x,
             transform.parent.eulerAngles.y,
-            transform.parent.eulerAngles.z + 90
+            transform.parent.eulerAngles.z + openAngle
         );
             //.z += 90;
         collider.enabled = false;
@@ -55,7 +57,7 @@ public class Gate : MonoBehaviour
         transform.parent.eulerAngles = new Vector3(
             transform.parent.eulerAngles.x,
             transform.parent.eulerAngles.y,
-            transform.parent.eulerAngles.z - 90
+            transform.parent.eulerAngles.z - openAngle
         );
         collider.enabled = true;
     }
