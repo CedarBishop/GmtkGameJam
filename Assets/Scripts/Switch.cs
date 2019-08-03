@@ -7,7 +7,6 @@ public class Switch : MonoBehaviour
 {
     public CurrentMechanic currentMechanic;
 
-
     public void SwitchMechanic ()
     {
         if (ActiveMechanic.instance._CurrentMechanic != currentMechanic)
@@ -15,5 +14,4 @@ public class Switch : MonoBehaviour
             ActiveMechanic.instance._CurrentMechanic = currentMechanic;
         }
     }
-
 }
