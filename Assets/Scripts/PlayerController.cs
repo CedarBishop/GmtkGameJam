@@ -30,6 +30,11 @@ public class PlayerController : MonoBehaviour
         SlidingBlock.blockDropped += LetGoOfBlock;
     }
 
+    void OnDestroy ()
+    {
+        SlidingBlock.blockDropped -= LetGoOfBlock;
+    }
+
     void Update()
     {
         if (isGrabbing)
