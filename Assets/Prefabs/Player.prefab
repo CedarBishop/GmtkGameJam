@@ -68,6 +68,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 100
+  pushTime: 0.1
   layerMask:
     serializedVersion: 2
     m_Bits: 512

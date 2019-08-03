@@ -7,6 +7,7 @@ public class Teleporter : MonoBehaviour
 {
     public Teleporter partnerTeleporter;
     public Color activatedColor;
+    public Vector2 spawnOffsetFromTeleporter;
 
     private SpriteRenderer spriteRenderer;
     private bool isActivated;
@@ -28,6 +29,10 @@ public class Teleporter : MonoBehaviour
 
     public void TeleportPlayer (GameObject player)
     {
-        player.transform.position = partnerTeleporter.transform.position + Vector3.right;
+        if (isActivated)
+        {
+            player.transform.position = partnerTeleporter.transform.position + new Vector3(partnerTeleporter.spawnOffsetFromTeleporter.x, partnerTeleporter.spawnOffsetFromTeleporter.y, 0);
+        }
     }
 }
+        

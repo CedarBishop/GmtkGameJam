@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(BoxCollider2D))]
 public class SlidingBlock : MonoBehaviour
 {
+    public static event Action blockDropped;
+    private SpriteRenderer spriteRenderer;
     private bool isMovable;
     public bool IsMovable
     {
@@ -13,22 +16,29 @@ public class SlidingBlock : MonoBehaviour
         set
         {
             isMovable = value;
-            rigidbody2D.isKinematic = (isMovable) ? false : true ;
+            spriteRenderer.color = (isMovable) ? Color.blue : Color.cyan;
         }
     }
 
-
-
-    private Rigidbody2D rigidbody2D;
-    void Start()
+    void Start ()
     {
-        rigidbody2D = GetComponent<Rigidbody2D>();
-        rigidbody2D.gravityScale = 0;
-        rigidbody2D.isKinematic = true;
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    public void PushBlock (Vector2 currentPlayerDirection)
-    {
 
+    public void GrabBlock (Transform playerTransform)
+    {
+        transform.parent = playerTransform;
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (!collision.gameObject.GetComponent<PlayerController>())
+        {
+            if (transform.parent != null)
+            {
+                blockDropped();
+            }
+        }
     }
 }
