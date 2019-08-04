@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 direction;
     private Rigidbody2D playerRigidbody;
+    private Animator animator;
     private Vector2 boxCastOrigin;
 
     enum CurrentDirection {Down, Left, Up, Right}
@@ -25,6 +26,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerRigidbody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+
         playerRigidbody.gravityScale = 0;
         inverseMoveTime = 1.0f / pushTime;
         SlidingBlock.blockDropped += LetGoOfBlock;
@@ -61,6 +64,7 @@ public class PlayerController : MonoBehaviour
     void Movement ()
     {
         direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        animator.SetBool("isWalking",(Mathf.Abs(direction.x) > 0.1f || Mathf.Abs(direction.y) > 0.1f) ? true : false);
         playerRigidbody.velocity = new Vector2(direction.x, direction.y) * movementSpeed * Time.deltaTime;
     }
 
@@ -69,22 +73,34 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             currentDirection = CurrentDirection.Up;
-            // up facing animtion here
+            animator.SetBool("up",true);
+            animator.SetBool("right", false);
+            animator.SetBool("down", false);
+            animator.SetBool("left", false);
         }
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
             currentDirection = CurrentDirection.Right;
-            // right facing animtion here
+            animator.SetBool("up", false);
+            animator.SetBool("right", true);
+            animator.SetBool("down", false);
+            animator.SetBool("left", false);
         }
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
             currentDirection = CurrentDirection.Down;
-            // down facing animtion here
+            animator.SetBool("up", false);
+            animator.SetBool("right", false);
+            animator.SetBool("down", true);
+            animator.SetBool("left", false);
         }
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
             currentDirection = CurrentDirection.Left;
-            // left facing animtion here
+            animator.SetBool("up", false);
+            animator.SetBool("right", false);
+            animator.SetBool("down", false);
+            animator.SetBool("left", true);
         }
     }
 

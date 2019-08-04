@@ -15,8 +15,8 @@ public class Gate : MonoBehaviour
         set
         {
             isOpen = value;
-            if (isOpen == true)
-            {
+            if (value == true)
+            {               
                 open();
             }
             else
