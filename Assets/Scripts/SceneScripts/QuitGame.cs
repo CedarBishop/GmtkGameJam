@@ -7,6 +7,7 @@ public class QuitGame : MonoBehaviour
 {
     public void Quit()
     {
+        AudioManager.instance.Play("Button Click");
         Application.Quit();
     }
 }

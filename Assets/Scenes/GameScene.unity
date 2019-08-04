@@ -2358,27 +2358,33 @@ PrefabInstance:
     - target: {fileID: 1488099952146293763, guid: 456fd966c4c46c24a83fab1e7aa8ae6d,
         type: 3}
       propertyPath: sentences.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1488099952146293763, guid: 456fd966c4c46c24a83fab1e7aa8ae6d,
         type: 3}
       propertyPath: sentences.Array.data[2]
-      value: Remember you can activate the switches to enable the obstacles
+      value: I've been stuck down here for a while
       objectReference: {fileID: 0}
     - target: {fileID: 1488099952146293763, guid: 456fd966c4c46c24a83fab1e7aa8ae6d,
         type: 3}
       propertyPath: sentences.Array.data[0]
-      value: Well if it isnt lil booty
+      value: Well hey there, bootie!
       objectReference: {fileID: 0}
     - target: {fileID: 1488099952146293763, guid: 456fd966c4c46c24a83fab1e7aa8ae6d,
         type: 3}
       propertyPath: sentences.Array.data[1]
-      value: Are you here to explore the dungeon too?
+      value: First time down here, huh?
       objectReference: {fileID: 0}
     - target: {fileID: 1488099952146293763, guid: 456fd966c4c46c24a83fab1e7aa8ae6d,
         type: 3}
       propertyPath: sentences.Array.data[3]
-      value: But you can only have one at a time.
+      value: the place is so old that only one part of the maze can be powered at
+        a time!
+      objectReference: {fileID: 0}
+    - target: {fileID: 1488099952146293763, guid: 456fd966c4c46c24a83fab1e7aa8ae6d,
+        type: 3}
+      propertyPath: sentences.Array.data[4]
+      value: It's too much hassle for me, I'd say
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 456fd966c4c46c24a83fab1e7aa8ae6d, type: 3}

@@ -6,6 +6,7 @@ public class Title : MonoBehaviour
 {
     public void showTitle()
     {
+        AudioManager.instance.Play("Button Click");
         ActiveScene.CurrentScene = SceneType.Title;
     }
 }
