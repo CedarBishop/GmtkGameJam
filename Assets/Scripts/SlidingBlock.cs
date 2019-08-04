@@ -16,7 +16,7 @@ public class SlidingBlock : MonoBehaviour
         set
         {
             isMovable = value;
-            spriteRenderer.color = (isMovable) ? Color.blue : Color.cyan;
+            spriteRenderer.color = (isMovable) ? Color.blue : Color.white;
         }
     }
 
@@ -31,14 +31,14 @@ public class SlidingBlock : MonoBehaviour
         transform.parent = playerTransform;
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (!collision.gameObject.GetComponent<PlayerController>())
-        {
-            if (transform.parent != null)
-            {
-                blockDropped();
-            }
-        }
-    }
+    //void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (!collision.gameObject.GetComponent<PlayerController>())
+    //    {
+    //        if (transform.parent != null)
+    //        {
+    //            blockDropped();
+    //        }
+    //    }
+    //}
 }

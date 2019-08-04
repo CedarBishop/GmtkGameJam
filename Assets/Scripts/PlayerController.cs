@@ -6,7 +6,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float movementSpeed = 100;
-    public float pushTime = 0.1f;
+    public float pushForce = 200;
+   // public float pushTime = 0.1f;
     public LayerMask layerMask;
     public float boxCastOffset = 1;
     public Vector2 boxCastSize = new Vector2(1,1);
@@ -21,7 +22,7 @@ public class PlayerController : MonoBehaviour
     CurrentDirection directionWhenGrabbed;
     private bool isGrabbing;
     private bool canPushPull;
-    private float inverseMoveTime;
+  //  private float inverseMoveTime;
 
     void Start()
     {
@@ -29,7 +30,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
 
         playerRigidbody.gravityScale = 0;
-        inverseMoveTime = 1.0f / pushTime;
+     //   inverseMoveTime = 1.0f / pushTime;
         SlidingBlock.blockDropped += LetGoOfBlock;
     }
 
@@ -63,7 +64,7 @@ public class PlayerController : MonoBehaviour
 
     void Movement ()
     {
-        direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         animator.SetBool("isWalking",(Mathf.Abs(direction.x) > 0.1f || Mathf.Abs(direction.y) > 0.1f) ? true : false);
         playerRigidbody.velocity = new Vector2(direction.x, direction.y) * movementSpeed * Time.deltaTime;
     }
@@ -162,26 +163,30 @@ public class PlayerController : MonoBehaviour
             if (directionWhenGrabbed == CurrentDirection.Left || directionWhenGrabbed == CurrentDirection.Right)
             {
                 direction = new Vector2(Input.GetAxisRaw("Horizontal"), 0);
-                if (direction.x > 0)
-                {
-                    StartCoroutine(CoPushAndPull(transform.position + Vector3.right));
-                }
-                else if (direction.x < 0)
-                {
-                    StartCoroutine(CoPushAndPull(transform.position + Vector3.left));
-                }               
+                playerRigidbody.AddForce(direction * pushForce);
+                StartCoroutine("CoPushAndPull");
+                //if (direction.x > 0)
+                //{
+                //    StartCoroutine(CoPushAndPull(transform.position + Vector3.right));
+                //}
+                //else if (direction.x < 0)
+                //{
+                //    StartCoroutine(CoPushAndPull(transform.position + Vector3.left));
+                //}               
             }
             else if (directionWhenGrabbed == CurrentDirection.Up || directionWhenGrabbed == CurrentDirection.Down)
             {
                 direction = new Vector2(0, Input.GetAxisRaw("Vertical"));
-                if (direction.y > 0)
-                {
-                    StartCoroutine(CoPushAndPull(transform.position + Vector3.up));
-                }
-                else if (direction.y < 0)
-                {
-                    StartCoroutine(CoPushAndPull(transform.position + Vector3.down));
-                }
+                playerRigidbody.AddForce(direction * pushForce);
+                StartCoroutine("CoPushAndPull");
+                //if (direction.y > 0)
+                //{
+                //    StartCoroutine(CoPushAndPull(transform.position + Vector3.up));
+                //}
+                //else if (direction.y < 0)
+                //{
+                //    StartCoroutine(CoPushAndPull(transform.position + Vector3.down));
+                //}
             }
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -190,24 +195,29 @@ public class PlayerController : MonoBehaviour
         }        
     }
 
-    IEnumerator CoPushAndPull (Vector3 end)
+    IEnumerator CoPushAndPull (/*Vector3 end*/)
     {
         canPushPull = false;
-        float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
-        while (sqrRemainingDistance > 0.01f)
+
+        while (Mathf.Abs( playerRigidbody.velocity.x) > 0 && Mathf.Abs(playerRigidbody.velocity.y) > 0)
         {
-            //Find a new position proportionally closer to the end, based on the moveTime
-            Vector3 newPostion = Vector3.MoveTowards(playerRigidbody.position, end, inverseMoveTime * Time.deltaTime);
-
-            //Call MovePosition on attached Rigidbody2D and move it to the calculated position.
-            playerRigidbody.MovePosition(newPostion);
-
-            //Recalculate the remaining distance after moving.
-            sqrRemainingDistance = (transform.position - end).sqrMagnitude;
-
-            //Return and loop until sqrRemainingDistance is close enough to zero to end the function
             yield return null;
         }
+        //float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
+        //while (sqrRemainingDistance > 0.01f)
+        //{
+        //    //Find a new position proportionally closer to the end, based on the moveTime
+        //    Vector3 newPostion = Vector3.MoveTowards(playerRigidbody.position, end, inverseMoveTime * Time.deltaTime);
+
+        //    //Call MovePosition on attached Rigidbody2D and move it to the calculated position.
+        //    playerRigidbody.MovePosition(newPostion);
+
+        //    //Recalculate the remaining distance after moving.
+        //    sqrRemainingDistance = (transform.position - end).sqrMagnitude;
+
+        //    //Return and loop until sqrRemainingDistance is close enough to zero to end the function
+        //    yield return null;
+        //}
         ResetVelocities();
         
         canPushPull = true;
