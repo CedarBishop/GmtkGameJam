@@ -31,6 +31,7 @@ public class Teleporter : MonoBehaviour
     {
         if (isActivated)
         {
+            AudioManager.instance.Play("Teleporter");
             player.transform.position = partnerTeleporter.transform.position + new Vector3(partnerTeleporter.spawnOffsetFromTeleporter.x, partnerTeleporter.spawnOffsetFromTeleporter.y, 0);
         }
     }

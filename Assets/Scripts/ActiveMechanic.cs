@@ -13,6 +13,10 @@ public class ActiveMechanic : MonoBehaviour
         get { return currentMechanic; }
         set
         {
+            if (currentMechanic == CurrentMechanic.Gate && value != CurrentMechanic.Gate)
+            {
+                AudioManager.instance.Play("Close Gate");
+            }
             currentMechanic = value;
             print(currentMechanic.ToString() + " activated");
             switch (currentMechanic)
@@ -26,6 +30,7 @@ public class ActiveMechanic : MonoBehaviour
                     ActivateGates(true);
                     ActivateTeleporters(false);
                     ActivateBlocks(false);
+                    AudioManager.instance.Play("Gate Open");
                     break;
                 case CurrentMechanic.Teleporter:
                     ActivateGates(false);

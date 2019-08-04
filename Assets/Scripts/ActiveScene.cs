@@ -21,7 +21,7 @@ public class ActiveScene : MonoBehaviour
                     SceneManager.LoadScene("Title");
                     break;
                 case SceneType.Game:
-                    SceneManager.LoadScene("levelLayout");
+                    SceneManager.LoadScene("GameScene");
                     break;
                 case SceneType.Win:
                     SceneManager.LoadScene("Win");

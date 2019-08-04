@@ -11,6 +11,7 @@ public class Switch : MonoBehaviour
     {
         if (ActiveMechanic.instance._CurrentMechanic != currentMechanic)
         {
+            AudioManager.instance.Play("Switch");
             ActiveMechanic.instance._CurrentMechanic = currentMechanic;
         }
     }

@@ -4,17 +4,15 @@ using UnityEngine;
 
 public class Win : MonoBehaviour
 {
-    void Start ()
+    void OnTriggerEnter2D (Collider2D collider)
     {
-        WinCondition.OnWin += showWin;
+        if (collider.gameObject.GetComponent<PlayerController>())
+        {
+            showWin();
+        }
     }
 
-    void OnDestroy ()
-    {
-        WinCondition.OnWin -= showWin;
-    }
-
-    public void showWin()
+    void showWin()
     {
         ActiveScene.CurrentScene = SceneType.Win;
     }

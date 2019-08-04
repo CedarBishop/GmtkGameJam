@@ -12,7 +12,7 @@ public class Dialogue : MonoBehaviour
     private Button button;
     private string[] Sentences;
     int index;
-    bool dialogueHasStarted;
+    public static bool dialogueHasStarted;
     bool isEndingDialogue;
 
     void Start ()
@@ -21,7 +21,13 @@ public class Dialogue : MonoBehaviour
         image = GetComponentInChildren<Image>();
         button = GetComponentInChildren<Button>();
         ChildrenStatus(false);
+        Npc.sendSentences += StartedDialogue;
     } 
+
+    void OnDestroy ()
+    {
+        Npc.sendSentences += StartedDialogue;
+    }
 
     void Update ()
     {
@@ -34,11 +40,13 @@ public class Dialogue : MonoBehaviour
         }
     }
 
-    void StartedDialogue (string [] sentences)
+    void StartedDialogue (string [] sentences, bool answer)
     {
         index = 0;
         Sentences = sentences;
+        isEndingDialogue = answer;
         dialogueHasStarted = true;
+        ClearText();
         StartCoroutine("Type");
         ChildrenStatus(true);
     }
@@ -79,7 +87,8 @@ public class Dialogue : MonoBehaviour
             //end game here
         }
         ClearText();
-        ChildrenStatus(false);        
+        ChildrenStatus(false);
+        dialogueHasStarted = false;
     }
 
     private void ChildrenStatus(bool answer)

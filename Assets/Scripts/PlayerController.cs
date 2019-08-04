@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
         {
             PushAndPull();
         }
-        else
+        else if (Dialogue.dialogueHasStarted == false)
         {
             Movement();
             GetDirection();
@@ -177,7 +177,19 @@ public class PlayerController : MonoBehaviour
                         textSent("Press E To Let Go Of The Crate");
                     }
                 }                               
-            }            
+            }
+            else if (collider.GetComponent<Npc>())
+            {
+                if (Dialogue.dialogueHasStarted == false)
+                {
+                    if (isTriggeringTeleporter == false)
+                        textSent("Press E To Talk To NPC");
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        collider.gameObject.GetComponent<Npc>().InteractNpc();
+                    }
+                }                
+            }
         }
         else
         {
@@ -228,8 +240,8 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator CoPushAndPull (/*Vector3 end*/)
     {
+        AudioManager.instance.Play("Move Crate");
         canPushPull = false;
-
         while (Mathf.Abs( playerRigidbody.velocity.x) > 0 && Mathf.Abs(playerRigidbody.velocity.y) > 0)
         {
             yield return null;
