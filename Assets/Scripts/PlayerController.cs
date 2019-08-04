@@ -5,6 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
+    public delegate void SendText(string sentence);
+    public static event SendText textSent;
+
     public float movementSpeed = 100;
     public float pushForce = 200;
    // public float pushTime = 0.1f;
@@ -22,6 +25,7 @@ public class PlayerController : MonoBehaviour
     CurrentDirection directionWhenGrabbed;
     private bool isGrabbing;
     private bool canPushPull;
+    private bool isTriggeringTeleporter;
   //  private float inverseMoveTime;
 
     void Start()
@@ -31,12 +35,12 @@ public class PlayerController : MonoBehaviour
 
         playerRigidbody.gravityScale = 0;
      //   inverseMoveTime = 1.0f / pushTime;
-        SlidingBlock.blockDropped += LetGoOfBlock;
+       // SlidingBlock.blockDropped += LetGoOfBlock;
     }
 
     void OnDestroy ()
     {
-        SlidingBlock.blockDropped -= LetGoOfBlock;
+        //SlidingBlock.blockDropped -= LetGoOfBlock;
     }
 
     void Update()
@@ -54,11 +58,28 @@ public class PlayerController : MonoBehaviour
         }       
     }
 
-    void OnTriggerEnter2D (Collider2D collider)
+    void OnTriggerStay2D (Collider2D collider)
     {
         if (collider.gameObject.GetComponent<Teleporter>())
         {
-            collider.gameObject.GetComponent<Teleporter>().TeleportPlayer(gameObject);
+            isTriggeringTeleporter = true;
+            if (textSent != null && ActiveMechanic.instance._CurrentMechanic == CurrentMechanic.Teleporter)
+            {
+                textSent("Press E To Activate Teleporter");
+            }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                collider.gameObject.GetComponent<Teleporter>().TeleportPlayer(gameObject);
+            }            
+        }
+    }
+
+
+    void OnTriggerExit2D(Collider2D collider)
+    {
+        if (collider.gameObject.GetComponent<Teleporter>())
+        {
+            isTriggeringTeleporter = false;
         }
     }
 
@@ -130,9 +151,11 @@ public class PlayerController : MonoBehaviour
     {
         Collider2D collider = Physics2D.OverlapBox(boxCastOrigin, boxCastSize, 0, layerMask);
         if (collider != null)
-        {
+        {                
             if (collider.GetComponent<Switch>())
             {
+                if (isTriggeringTeleporter == false)
+                    textSent("Press E to Activate Switch");
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     collider.GetComponent<Switch>().SwitchMechanic();
@@ -142,6 +165,8 @@ public class PlayerController : MonoBehaviour
             {
                 if (collider.gameObject.GetComponent<SlidingBlock>().IsMovable)
                 {
+                    if (isTriggeringTeleporter == false && ActiveMechanic.instance._CurrentMechanic == CurrentMechanic.Blocks)
+                        textSent("Press E To Grab The Crate");
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         ResetVelocities();
@@ -149,9 +174,15 @@ public class PlayerController : MonoBehaviour
                         isGrabbing = true;
                         directionWhenGrabbed = currentDirection;
                         canPushPull = true;
+                        textSent("Press E To Let Go Of The Crate");
                     }
                 }                               
-            }
+            }            
+        }
+        else
+        {
+            if (isTriggeringTeleporter == false)
+                textSent("");
         }
     }
 

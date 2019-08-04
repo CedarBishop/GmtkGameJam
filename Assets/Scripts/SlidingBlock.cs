@@ -7,7 +7,7 @@ using System;
 [RequireComponent(typeof(BoxCollider2D))]
 public class SlidingBlock : MonoBehaviour
 {
-    public static event Action blockDropped;
+   // public static event Action blockDropped;
     private SpriteRenderer spriteRenderer;
     private bool isMovable;
     public bool IsMovable

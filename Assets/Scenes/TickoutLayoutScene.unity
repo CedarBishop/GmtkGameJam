@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -3173,6 +3173,21 @@ PrefabInstance:
       propertyPath: pushForce
       value: 250
       objectReference: {fileID: 0}
+    - target: {fileID: 9096782438481669012, guid: 3b12a78af755cf74db0bef38f63524bb,
+        type: 3}
+      propertyPath: boxCastSize.x
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 9096782438481669012, guid: 3b12a78af755cf74db0bef38f63524bb,
+        type: 3}
+      propertyPath: boxCastSize.y
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 9096782438481669012, guid: 3b12a78af755cf74db0bef38f63524bb,
+        type: 3}
+      propertyPath: boxCastOffset
+      value: 0.8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b12a78af755cf74db0bef38f63524bb, type: 3}
 --- !u!1 &374089594
@@ -4433,7 +4448,7 @@ PrefabInstance:
     - target: {fileID: 167333372729502179, guid: d7b60d79db8d6b540b5ae3ded8cb8813,
         type: 3}
       propertyPath: activatedColor.g
-      value: 0.09710541
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 167333372729502179, guid: d7b60d79db8d6b540b5ae3ded8cb8813,
         type: 3}
@@ -6356,7 +6371,7 @@ PrefabInstance:
     - target: {fileID: 167333372729502179, guid: d7b60d79db8d6b540b5ae3ded8cb8813,
         type: 3}
       propertyPath: activatedColor.g
-      value: 0.09710541
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 167333372729502179, guid: d7b60d79db8d6b540b5ae3ded8cb8813,
         type: 3}
@@ -12177,6 +12192,11 @@ PrefabInstance:
     - target: {fileID: 167333372729502179, guid: d7b60d79db8d6b540b5ae3ded8cb8813,
         type: 3}
       propertyPath: spawnOffsetFromTeleporter.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 167333372729502179, guid: d7b60d79db8d6b540b5ae3ded8cb8813,
+        type: 3}
+      propertyPath: spawnOffsetFromTeleporter.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 167333372729502178, guid: d7b60d79db8d6b540b5ae3ded8cb8813,
@@ -12956,7 +12976,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 2
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
