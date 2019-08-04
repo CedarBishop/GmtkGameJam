@@ -35,6 +35,7 @@ public class PauseManager : MonoBehaviour
         isPaused = true;
         Time.timeScale = 0f;
         pauseMenu.SetActive(true);
+        AudioManager.instance.Play("Button Click");
     }
 
     public void Resume()
@@ -42,5 +43,6 @@ public class PauseManager : MonoBehaviour
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
+        AudioManager.instance.Play("Button Click");
     }
 }

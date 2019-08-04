@@ -14,6 +14,7 @@ public class ActiveScene : MonoBehaviour
         get { return currentScene; }
         set
         {
+            AudioManager.instance.Play("Button Click");
             currentScene = value;
             switch (currentScene)
             {
