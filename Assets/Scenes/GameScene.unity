@@ -2355,6 +2355,31 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 0.08
       objectReference: {fileID: 0}
+    - target: {fileID: 1488099952146293763, guid: 456fd966c4c46c24a83fab1e7aa8ae6d,
+        type: 3}
+      propertyPath: sentences.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1488099952146293763, guid: 456fd966c4c46c24a83fab1e7aa8ae6d,
+        type: 3}
+      propertyPath: sentences.Array.data[2]
+      value: Remember you can activate the switches to enable the obstacles
+      objectReference: {fileID: 0}
+    - target: {fileID: 1488099952146293763, guid: 456fd966c4c46c24a83fab1e7aa8ae6d,
+        type: 3}
+      propertyPath: sentences.Array.data[0]
+      value: Well if it isnt lil booty
+      objectReference: {fileID: 0}
+    - target: {fileID: 1488099952146293763, guid: 456fd966c4c46c24a83fab1e7aa8ae6d,
+        type: 3}
+      propertyPath: sentences.Array.data[1]
+      value: Are you here to explore the dungeon too?
+      objectReference: {fileID: 0}
+    - target: {fileID: 1488099952146293763, guid: 456fd966c4c46c24a83fab1e7aa8ae6d,
+        type: 3}
+      propertyPath: sentences.Array.data[3]
+      value: But you can only have one at a time.
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 456fd966c4c46c24a83fab1e7aa8ae6d, type: 3}
 --- !u!1 &245342089
