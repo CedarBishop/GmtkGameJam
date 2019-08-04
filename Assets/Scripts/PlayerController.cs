@@ -286,4 +286,9 @@ public class PlayerController : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(boxCastOrigin,boxCastSize);
     }
+
+    public void PlayFootstep ()
+    {
+        AudioManager.instance.Play("Footstep");
+    }
 }
