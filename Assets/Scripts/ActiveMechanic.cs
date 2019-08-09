@@ -65,7 +65,7 @@ public class ActiveMechanic : MonoBehaviour
         }
     }
 
-    void OnValidate ()
+    void Start ()
     {
         gates = FindObjectsOfType<Gate>();
         teleporters = FindObjectsOfType<Teleporter>();

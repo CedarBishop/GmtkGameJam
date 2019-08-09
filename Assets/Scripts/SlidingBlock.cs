@@ -22,6 +22,7 @@ public class SlidingBlock : MonoBehaviour
 
     void Start ()
     {
+
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -30,15 +31,4 @@ public class SlidingBlock : MonoBehaviour
     {
         transform.parent = playerTransform;
     }
-
-    //void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (!collision.gameObject.GetComponent<PlayerController>())
-    //    {
-    //        if (transform.parent != null)
-    //        {
-    //            blockDropped();
-    //        }
-    //    }
-    //}
 }

@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class Dialogue : MonoBehaviour
 {
-    public float typingSpeed;
-
     private Text text;
     private Image image;
     private Button button;
@@ -56,7 +54,7 @@ public class Dialogue : MonoBehaviour
         foreach (char letter in Sentences[index].ToCharArray())
         {
             text.text += letter;
-            yield return new WaitForSeconds(typingSpeed);
+            yield return new WaitForEndOfFrame();
         }        
     }
 

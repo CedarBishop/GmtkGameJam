@@ -21,7 +21,7 @@ public class Teleporter : MonoBehaviour
         }
     }
 
-    void OnValidate()
+    void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
     }

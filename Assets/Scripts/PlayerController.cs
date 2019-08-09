@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
 
     public float movementSpeed = 100;
     public float pushForce = 200;
-   // public float pushTime = 0.1f;
     public LayerMask layerMask;
     public float boxCastOffset = 1;
     public Vector2 boxCastSize = new Vector2(1,1);
@@ -23,10 +22,11 @@ public class PlayerController : MonoBehaviour
     enum CurrentDirection {Down, Left, Up, Right}
     CurrentDirection currentDirection;
     CurrentDirection directionWhenGrabbed;
+    CurrentDirection origialDirection;
     private bool isGrabbing;
     private bool canPushPull;
     private bool isTriggeringTeleporter;
-  //  private float inverseMoveTime;
+    private KeyCode lastPressedKey;
 
     void Start()
     {
@@ -34,13 +34,6 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
 
         playerRigidbody.gravityScale = 0;
-     //   inverseMoveTime = 1.0f / pushTime;
-       // SlidingBlock.blockDropped += LetGoOfBlock;
-    }
-
-    void OnDestroy ()
-    {
-        //SlidingBlock.blockDropped -= LetGoOfBlock;
     }
 
     void Update()
@@ -92,38 +85,31 @@ public class PlayerController : MonoBehaviour
 
     void GetDirection()
     {
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+        origialDirection = currentDirection;
+        if (direction.y > 0.5f)
         {
             currentDirection = CurrentDirection.Up;
-            animator.SetBool("up",true);
-            animator.SetBool("right", false);
-            animator.SetBool("down", false);
-            animator.SetBool("left", false);
         }
-        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+        if (direction.x > 0.5f)
         {
             currentDirection = CurrentDirection.Right;
-            animator.SetBool("up", false);
-            animator.SetBool("right", true);
-            animator.SetBool("down", false);
-            animator.SetBool("left", false);
         }
-        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+        if (direction.y < -0.5f)
         {
             currentDirection = CurrentDirection.Down;
-            animator.SetBool("up", false);
-            animator.SetBool("right", false);
-            animator.SetBool("down", true);
-            animator.SetBool("left", false);
         }
-        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+        if (direction.x < -0.5f)
         {
-            currentDirection = CurrentDirection.Left;
-            animator.SetBool("up", false);
-            animator.SetBool("right", false);
-            animator.SetBool("down", false);
-            animator.SetBool("left", true);
+            currentDirection = CurrentDirection.Left;           
         }
+        if (origialDirection != currentDirection)
+        {
+            animator.SetBool("up", (currentDirection == CurrentDirection.Up));
+            animator.SetBool("right", (currentDirection == CurrentDirection.Right));
+            animator.SetBool("down", (currentDirection == CurrentDirection.Down));
+            animator.SetBool("left", (currentDirection == CurrentDirection.Left));
+        }
+        
     }
 
     void RepositionBoxCast()
@@ -207,29 +193,13 @@ public class PlayerController : MonoBehaviour
             {
                 direction = new Vector2(Input.GetAxisRaw("Horizontal"), 0);
                 playerRigidbody.AddForce(direction * pushForce);
-                StartCoroutine("CoPushAndPull");
-                //if (direction.x > 0)
-                //{
-                //    StartCoroutine(CoPushAndPull(transform.position + Vector3.right));
-                //}
-                //else if (direction.x < 0)
-                //{
-                //    StartCoroutine(CoPushAndPull(transform.position + Vector3.left));
-                //}               
+                StartCoroutine("CoPushAndPull");        
             }
             else if (directionWhenGrabbed == CurrentDirection.Up || directionWhenGrabbed == CurrentDirection.Down)
             {
                 direction = new Vector2(0, Input.GetAxisRaw("Vertical"));
                 playerRigidbody.AddForce(direction * pushForce);
                 StartCoroutine("CoPushAndPull");
-                //if (direction.y > 0)
-                //{
-                //    StartCoroutine(CoPushAndPull(transform.position + Vector3.up));
-                //}
-                //else if (direction.y < 0)
-                //{
-                //    StartCoroutine(CoPushAndPull(transform.position + Vector3.down));
-                //}
             }
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -238,7 +208,7 @@ public class PlayerController : MonoBehaviour
         }        
     }
 
-    IEnumerator CoPushAndPull (/*Vector3 end*/)
+    IEnumerator CoPushAndPull ()
     {
         AudioManager.instance.Play("Move Crate");
         canPushPull = false;
@@ -246,21 +216,6 @@ public class PlayerController : MonoBehaviour
         {
             yield return null;
         }
-        //float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
-        //while (sqrRemainingDistance > 0.01f)
-        //{
-        //    //Find a new position proportionally closer to the end, based on the moveTime
-        //    Vector3 newPostion = Vector3.MoveTowards(playerRigidbody.position, end, inverseMoveTime * Time.deltaTime);
-
-        //    //Call MovePosition on attached Rigidbody2D and move it to the calculated position.
-        //    playerRigidbody.MovePosition(newPostion);
-
-        //    //Recalculate the remaining distance after moving.
-        //    sqrRemainingDistance = (transform.position - end).sqrMagnitude;
-
-        //    //Return and loop until sqrRemainingDistance is close enough to zero to end the function
-        //    yield return null;
-        //}
         ResetVelocities();
         
         canPushPull = true;
