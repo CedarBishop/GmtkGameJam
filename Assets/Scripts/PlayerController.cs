@@ -219,7 +219,6 @@ public class PlayerController : MonoBehaviour
         ResetVelocities();
         
         canPushPull = true;
-        print("ended coroutine");
     }
 
     void ResetVelocities ()

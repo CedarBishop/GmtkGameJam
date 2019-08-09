@@ -18,7 +18,6 @@ public class ActiveMechanic : MonoBehaviour
                 AudioManager.instance.Play("Close Gate");
             }
             currentMechanic = value;
-            print(currentMechanic.ToString() + " activated");
             switch (currentMechanic)
             {
                 case CurrentMechanic.None:
